@@ -7,15 +7,15 @@ class Ship {
 
     hit() {
         this.damage = this.damage + 1
-        this.isSunk()
+        this.#isSunk()
     }
 
-    setShipAsSunk() {
+    #setShipAsSunk() {
         this.sunk = true
     }
 
-    isSunk() {
-        if (this.damage === this.length) this.setShipAsSunk()
+    #isSunk() {
+        if (this.damage === this.length) this.#setShipAsSunk()
     }
 }
 
