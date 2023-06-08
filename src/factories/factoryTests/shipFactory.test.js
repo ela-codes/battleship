@@ -1,7 +1,8 @@
 import Ship from '../shipFactory' 
 
-const carrier = new Ship(5)
+const carrier = new Ship('carrier', 5)
 const carrierObjTest = {
+    "name": 'carrier',
     "length": 5,
     "damage": 0,
     "sunk": false
