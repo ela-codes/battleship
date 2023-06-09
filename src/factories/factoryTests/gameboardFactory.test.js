@@ -1,7 +1,7 @@
 import Gameboard from '../gameboardFactory' 
 import Ship from '../shipFactory'
 
-const correctGameboard = {
+export const correctGameboard = {
     carrier: new Ship('carrier', 5),
     battleship: new Ship('battleship', 4),
     cruiser: new Ship('cruiser', 3),
@@ -97,3 +97,4 @@ describe('sink all ships on board', () => {
         expect(battleshipGame.areAllShipsSunk()).toBe(true)
     })
 })
+
