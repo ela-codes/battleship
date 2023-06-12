@@ -1,5 +1,5 @@
 import Player from '../playerFactory'
-import { correctGameboard } from './gameboardFactory.test'
+import { correctGameboard } from './testData'
 
 const ela = new Player
 
