@@ -99,7 +99,7 @@ class Gameboard {
         }
     }
 
-    #getBoard() {
+    getBoard() {
         const boardCopy = [...this.board]
         return boardCopy
     }
@@ -137,7 +137,7 @@ class Gameboard {
         // if not, record the coordinates of the missed attack
 
         if (this.#isValidAttack(x, y)) {
-            const board = this.#getBoard()
+            const board = this.getBoard()
             const ships = {
                 'carrier': this.carrier, 
                 'battleship': this.battleship, 

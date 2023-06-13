@@ -9,39 +9,36 @@ class Bot {
         const newBoard = new Gameboard
         return newBoard
     }
-
-    getBotBoard() {
-        return this.board.getBoard()
-    }
-
-    attackEnemy(enemyBoard) {
+    
+    getCoordinates(enemyGameboard) {
         // pick a random spot within the board
         // should be a unique coordinate every time
         // if previous coordinate was a hit, choose a coordinate +-1 x , +-1 y (TO DO)
-
         function getRandomNum(min, max) {
             const num = Math.random() * (max - min) + min;
             return Math.floor(num)
         }
 
-        function generateCoordinates() {
-            const xCoord = getRandomNum(0, 9)
-            const yCoord = getRandomNum(0, 9)
-            return [xCoord, yCoord]
-        }
-
-        function isEmptyPosition(position, enemyBoard) {
-            let [x, y] = [...position]
+        function isEmptyPosition(x, y, enemyBoard) {
             return enemyBoard[x][y] === null
         }
 
-        let attackCoord = generateCoordinates()
+        let xCoord = getRandomNum(0, 9)
+        let yCoord = getRandomNum(0, 9)
 
-        while (!isEmptyPosition(attackCoord, enemyBoard)) {
-            attackCoord = generateCoordinates()
+        while (!isEmptyPosition(xCoord, yCoord, enemyGameboard.getBoard())) {
+            xCoord = getRandomNum(0, 9)
+            yCoord = getRandomNum(0, 9)
         }
+        
+        return [xCoord, yCoord]
+    }
 
-        return attackCoord
+
+    attackEnemy(coordinatesArr, enemyBoard) {
+        const [x, y] = [...coordinatesArr] 
+        const attackFeedback = enemyBoard.receiveAttack(x, y)
+        return attackFeedback
     }
 
 }

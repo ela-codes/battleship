@@ -2,12 +2,18 @@ import Gameboard from './gameboardFactory'
 
 class Player {
     constructor() {
-        this.board = this.#getBoard()
+        this.board = this.#createBoard()
     }
 
-    #getBoard() {
+    #createBoard() {
         const newBoard = new Gameboard
         return newBoard
+    }
+
+    attackEnemy(coordinatesArr, enemyBoard) {
+        const [x, y] = [...coordinatesArr] 
+        const attackFeedback = enemyBoard.receiveAttack(x, y)
+        return attackFeedback
     }
 }
 
