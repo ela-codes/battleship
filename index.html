@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="module" src="main.js" defer></script>
+    <link rel="stylesheet" href="style.css">
     <title>Battleship</title>
 </head>
 <body>
@@ -16,6 +18,21 @@
         </div>
         <div class="shipyard">
             <!-- populate with script -->
+            <div class="carrier ship" draggable="true" data-length="5">
+                <div class="carrier part"></div>
+                <div class="carrier part"></div>
+                <div class="carrier part"></div>
+                <div class="carrier part"></div>
+                <div class="carrier part"></div>
+            </div>
+
+            <div class="battleship ship" draggable="true" data-length="4">
+                <div class="battleship part"></div>
+                <div class="battleship part"></div>
+                <div class="battleship part"></div>
+                <div class="battleship part"></div>
+            </div>
+
         </div>
         <button class="ready">Begin battle</button>
     </div>

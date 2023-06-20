@@ -1,0 +1,109 @@
+:root {
+    --boxSize: 40px;
+    --shipBoxSize: 35px;
+}
+
+
+body {
+    margin: 0;
+    gap: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.pBoard {
+    padding: 20px 0px;
+}
+
+
+.boardContainer {
+    display: grid;
+    grid-template-columns: var(--boxSize) 1fr;
+    grid-template-rows: var(--boxSize) 1fr;
+}
+
+.boardGrid {
+    display: flex;
+    flex-direction: column;
+    grid-area: 2 / 2 / 3 / 3;
+}
+
+.boardGrid .row {
+    display: flex;
+}
+
+.boardYHeader {
+    display: flex;
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.boardXHeader {
+    display: flex;
+    flex-direction: column;
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.boxHeader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: var(--boxSize);
+    height: var(--boxSize);
+    
+    
+}
+
+.boardYHeader .boxHeader {
+    margin: 0px 2px;
+}
+
+.boardXHeader .boxHeader {
+    margin: 2px 0px;
+}
+
+.box {
+    background-color: #dff4ff;
+    width: var(--boxSize);
+    height: var(--boxSize);
+    border-radius: 5px;
+    margin: 2px;
+}
+
+.shipyard {
+    display: grid;
+    gap: 20px;
+}
+
+.ship {
+    display: flex;
+    flex-direction: row;
+}
+
+.part {
+    width: var(--shipBoxSize);
+    height: var(--shipBoxSize);
+    background-color: rgb(175, 174, 174);
+    border: 1px solid rgb(148, 148, 148);
+    border-radius: 5px;
+}
+
+
+
+
+
+
+
+.main, 
+.outro {
+    display: none;
+}
