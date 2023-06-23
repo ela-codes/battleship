@@ -1,6 +1,9 @@
 :root {
-    --boxSize: 40px;
-    --shipBoxSize: 35px;
+    --boxSize: 50px;
+    --shipBoxSize: 48px;
+    --boxMargin: 1px;
+    --lightblue: #dff4ff;
+    --darkblue: #439acc;
 }
 
 
@@ -13,16 +16,28 @@ body {
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    font-family: 'Arial Black', sans-serif;
+    background-color: var(--darkblue)
+}
+
+button {
+    font-family: 'Arial Black', sans-serif;
+    border: none;
+    background: none;
+    cursor: pointer;
+
 }
 
 .intro {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: space-between;
 }
 
-.pBoard {
-    padding: 20px 0px;
+.pBoard,
+.shipyard {
+    padding: 40px 0px;
 }
 
 
@@ -59,51 +74,89 @@ body {
     align-items: center;
     width: var(--boxSize);
     height: var(--boxSize);
-    
-    
 }
 
 .boardYHeader .boxHeader {
-    margin: 0px 2px;
+    margin: 0px var(--boxMargin);
 }
 
 .boardXHeader .boxHeader {
-    margin: 2px 0px;
+    margin: var(--boxMargin) 0px;
 }
 
 .box {
-    background-color: #dff4ff;
+    background-color: var(--lightblue);
     width: var(--boxSize);
     height: var(--boxSize);
     border-radius: 5px;
-    margin: 2px;
+    margin: var(--boxMargin);
+}
+
+
+/* box state */
+.hovered { 
+    background-color: rgb(211, 119, 119);
 }
 
 .shipyard {
-    display: grid;
+    width: 50%;
+    display: flex;
+    flex-wrap: wrap;
     gap: 20px;
+    justify-content: center;
 }
 
 .ship {
-    display: flex;
-    flex-direction: row;
-}
-
-.part {
-    width: var(--shipBoxSize);
     height: var(--shipBoxSize);
-    background-color: rgb(175, 174, 174);
-    border: 1px solid rgb(148, 148, 148);
-    border-radius: 5px;
+    cursor: move;
+    background-color: #afaeae;
+    border: 1px solid #afaeae;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 10px;
 }
 
+#carrier {
+    width: calc(var(--shipBoxSize) * 5);
+}
 
+#battleship {
+    width: calc(var(--shipBoxSize) * 4);
+}
 
+#cruiser,
+#submarine {
+    width: calc(var(--shipBoxSize) * 3);
+}
 
+#destroyer {
+    width: calc(var(--shipBoxSize) * 2);
+}
 
+button.ready {
+    height: 50px;
+    width: calc(var(--shipBoxSize) * 4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: var(--darkblue);
+}
 
 
 .main, 
 .outro {
     display: none;
+}
+
+header {
+    padding-top: 10px;
+    font-size: 50px
+}
+
+footer {
+    font-family: Arial;
 }
