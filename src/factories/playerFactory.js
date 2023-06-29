@@ -15,6 +15,10 @@ class Player {
         const attackFeedback = enemyBoard.receiveAttack(x, y)
         return attackFeedback
     }
+
+    viewBoard() {
+        return this.board.getBoard()
+    }
 }
 
 export default Player

@@ -66,6 +66,10 @@ class Bot {
         return attackFeedback
     }
 
+    viewBoard() {
+        return this.board.getBoard()
+    }
+
     #storePreviousAttack(coordinatesArr, enemyWasHit) {
         this.#previousAttack = coordinatesArr
         this.#successfulAttack = enemyWasHit

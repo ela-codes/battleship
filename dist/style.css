@@ -2,6 +2,7 @@
     --boxSize: 50px;
     --shipBoxSize: 48px;
     --boxMargin: 1px;
+    --mediumgray: #afaeae;
     --lightblue: #dff4ff;
     --darkblue: #439acc;
 }
@@ -17,7 +18,7 @@ body {
     justify-content: space-between;
     align-items: center;
     font-family: 'Arial Black', sans-serif;
-    background-color: var(--darkblue)
+    /* background-color: var(--darkblue) */
 }
 
 button {
@@ -98,6 +99,22 @@ button {
     background-color: rgb(211, 119, 119);
 }
 
+.dropped {
+    background-color: var(--mediumgray);
+}
+
+
+/* ship rotation */
+
+/* .rotatable {
+    transition: transform .4s ease-in-out;
+    transform: rotate(0deg);
+}
+
+.rotatable:hover {
+    transform: rotate(90deg);
+} */
+
 .shipyard {
     width: 50%;
     display: flex;
@@ -109,8 +126,7 @@ button {
 .ship {
     height: var(--shipBoxSize);
     cursor: move;
-    background-color: #afaeae;
-    border: 1px solid #afaeae;
+    background-color: var(--mediumgray);
     border-radius: 25px;
     display: flex;
     justify-content: center;
