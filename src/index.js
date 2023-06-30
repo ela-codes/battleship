@@ -15,7 +15,7 @@ console.log(p1.viewBoard())
 
 // activate event listeners
 applyDragDrop(p1.board)
-// allowRotate()
+allowRotate()
 
 
 export default p1

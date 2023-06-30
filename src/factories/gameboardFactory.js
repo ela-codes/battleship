@@ -7,10 +7,10 @@ class Gameboard {
         this.cruiser = this.#createShip('cruiser', 3)
         this.submarine = this.#createShip('submarine', 3)
         this.destroyer = this.#createShip('destroyer', 2)
-        // this.board = this.#positionShips(this.#createBoard())
         this.board = this.#createBoard()
         this.missedAttacks = []
         this.successfulAttacks = []
+        this.numOfShipsReady = 0;
     }
 
     #createBoard() {
@@ -42,7 +42,7 @@ class Gameboard {
         return ships
     }
 
-    positionShips(x, y, shipName) { // receive position coordinates for a ship
+    positionShip(x, y, shipName) { // position ship at x,y coordinates
         this.updateBoardArray(Number(x), Number(y), shipName)
     }
 

@@ -17,33 +17,44 @@
             <!-- populate with script -->
         </div>
         <div class="shipyard">
-            <!-- populate with script -->
-            <div id="carrier" class="ship rotatable" draggable="true" data-length="5">CARRIER</div>
-            <div id="battleship" class="ship rotatable" draggable="true" data-length="4">BATTLESHIP</div>
-            <div id="cruiser" class="ship rotatable" draggable="true" data-length="3">CRUISER</div>
-            <div id="submarine" class="ship rotatable" draggable="true" data-length="3">SUBMARINE</div>
-            <div id="destroyer" class="ship rotatable" draggable="true" data-length="2">DESTROYER</div>
+            <div class="shipComponents">
+                <div id="carrier" class="ship rotatable" draggable="true" data-length="5" data-rotated="false">CARRIER</div>
+            
+                <div id="battleship" class="ship rotatable" draggable="true" data-length="4" data-rotated="false">BATTLESHIP</div>
+                
+                <div id="cruiser" class="ship rotatable" draggable="true" data-length="3" data-rotated="false">CRUISER</div>
+            
+                <div id="submarine" class="ship rotatable" draggable="true" data-length="3" data-rotated="false">SUBMARINE</div>
+                
+                <div id="destroyer" class="ship rotatable" draggable="true" data-length="2" data-rotated="false">DESTROYER</div>
+            </div>
+            <button class="resetShipyard">Reset Ships</button>
         </div>
-        <button class="ready">Begin battle</button>
+        <button class="beginBattle">Begin battle</button>
     </div>
 
     <!-- when ships are ready, show main screen -->
     <div class="main">
+        <div class="mainHeader"></div>
         <div class="playerSide">
-            <div class="playerFleetHeader">YOUR FLEET</div>
-            <div class="pBoard">
-                <!-- populate with script -->
-            </div>
+            <div class="fleetHeader">YOUR FLEET</div>
+
+            <!-- populate this with player board -->
+
             <div class="pGraveyard">
+                <div class="graveyardHeader">GRAVEYARD</div>
+                <div class="pSunkShips"></div>
                 <!-- populate with script -->
             </div>
         </div>
         <div class="botSide">
-            <div class="botFleetHeader">OPPONENT</div>
+            <div class="fleetHeader">OPPONENT</div>
             <div class="bBoard">
                 <!-- populate with script -->
             </div>
             <div class="bGraveyard">
+                <div class="graveyardHeader">GRAVEYARD</div>
+                <div class="bSunkShips"></div>
                 <!-- populate with script -->
             </div>
         </div>
