@@ -2,6 +2,7 @@ import createBoardComponent from "./components/gameboardUI";
 
 // DRAG N DROP
 function applyDragDrop(board) {
+    allowRotate()
 
     function dragStartHandler(event) {
         console.log("dragging", event.target.id, "...")
@@ -36,15 +37,39 @@ function applyDragDrop(board) {
             ship.setAttribute('draggable', 'false')
         }
 
-        function isValidDropZone(event, isRotated) {
+        function isValidDropZone(event, shipLength, isRotated) {
+
             function getIndexBasedOnShipRotation(event) {
                 if (isRotated) return Number(event.target.dataset.x)
                 return Number(event.target.dataset.y)
             }
-            const isEmptySlot = !event.target.classList.contains("dropped")
+            
+            function areEmptySlots(boxElement, shipLength, index, isRotated) {
+                if (boxElement.classList.contains("dropped")) return false
+                if (boxElement === null) return false
+
+                if (shipLength === 1) return true
+
+                let nextBoxElement;
+
+                if (isRotated) {
+                    const x = Number(boxElement.dataset.x)
+                    nextBoxElement = document.querySelector(`[data-x="${x+1}"][data-y="${boxElement.dataset.y}"]`)
+                } else {
+                    const y = Number(boxElement.dataset.y)
+                    nextBoxElement = document.querySelector(`[data-x="${boxElement.dataset.x}"][data-y="${y+1}"]`)
+                }
+                shipLength--
+                return areEmptySlots(nextBoxElement, shipLength, index, isRotated)
+            }
+            
             const index = getIndexBasedOnShipRotation(event)
 
-            return isEmptySlot && ((index + (shipLength - 1)) <= 9)
+            const validIndices = (index + (shipLength - 1)) <= 9
+            if (!validIndices) return false
+
+            const emptySlots = areEmptySlots(event.target, shipLength, index, isRotated)
+            return emptySlots
         }
 
         event.preventDefault()
@@ -52,17 +77,16 @@ function applyDragDrop(board) {
 
         isRotated =  isRotated === " false" ? false : true
 
-        if (isValidDropZone(event, isRotated)) {
+        if (isValidDropZone(event, shipLength, isRotated)) {
             event.target.classList.add(shipName, "dropped")
             populateNextBox(event.target, shipLength, isRotated)
             removeFromShipyard(shipName)
+            board.numOfShipsReady++
+
+            // if all ships are positioned on the board, then allow user to start the game
+            if (board.numOfShipsReady === 5) toggleBeginBattleBtn()
         }
-        
         event.target.classList.remove("hovered")
-        board.numOfShipsReady++
-
-        if (board.numOfShipsReady === 5) toggleBeginBattleBtn() // if all ships are positioned on the board, then allow user to start the game
-
         console.log(board.getBoard())
     }
 
@@ -142,8 +166,9 @@ function resetShips() {
 
 function allowGameStart(btn) {
     btn.addEventListener('click', e => {
-        buildMainScreen()
+        createBotBoardUI()
         showMainScreen()
+        updateBoardSizes()
     })
 
 }
@@ -163,14 +188,19 @@ function showMainScreen() {
     introScreen.removeChild(pBoard)
 }
 
-function buildMainScreen() {
+function createBotBoardUI() {
     const botBoard = document.querySelector('.bBoard')
     createBoardComponent(botBoard)
 
+
+
+}
+
+function updateBoardSizes() {
     const boxSizeStyle = document.querySelector(':root')
     boxSizeStyle.style.setProperty('--boxSize', '50px')
 }
 
-export { applyDragDrop, allowRotate }
+export { applyDragDrop }
 
 

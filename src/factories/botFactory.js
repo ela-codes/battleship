@@ -75,6 +75,10 @@ class Bot {
         this.#successfulAttack = enemyWasHit
     }
 
+    chooseShipPositioning() {
+        
+    }
+
 }
 
 export default Bot

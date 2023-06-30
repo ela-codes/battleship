@@ -1,5 +1,5 @@
 import createBoardComponent from "./components/gameboardUI"
-import { applyDragDrop, allowRotate } from "./eventListeners"
+import { applyDragDrop } from "./eventListeners"
 import Bot from "./factories/botFactory"
 import Player from "./factories/playerFactory"
 
@@ -11,11 +11,12 @@ createBoardComponent(pBoard)
 const p1 = new Player
 const bot = new Bot
 console.log(p1.viewBoard())
+console.log(bot.viewBoard())
 
 
 // activate event listeners
 applyDragDrop(p1.board)
-allowRotate()
+
 
 
 export default p1
