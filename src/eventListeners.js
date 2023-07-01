@@ -62,7 +62,7 @@ function applyDragDrop(board) {
                 shipLength--
                 return areEmptySlots(nextBoxElement, shipLength, index, isRotated)
             }
-            
+
             const index = getIndexBasedOnShipRotation(event)
 
             const validIndices = (index + (shipLength - 1)) <= 9
@@ -185,22 +185,23 @@ function showMainScreen() {
     const playerSide = document.querySelector('.playerSide')
     playerSide.append(pBoard)
 
-    introScreen.removeChild(pBoard)
+}
+
+function createPlayerBoardUI() {
+    const pBoard = document.querySelector('.pBoard')
+    createBoardComponent(pBoard)
 }
 
 function createBotBoardUI() {
     const botBoard = document.querySelector('.bBoard')
     createBoardComponent(botBoard)
-
-
-
 }
 
 function updateBoardSizes() {
-    const boxSizeStyle = document.querySelector(':root')
-    boxSizeStyle.style.setProperty('--boxSize', '50px')
+    const boxSize = document.querySelector(':root')
+    boxSize.style.setProperty('--boxSize', '50px')
 }
 
-export { applyDragDrop }
+export { applyDragDrop, createPlayerBoardUI }
 
 

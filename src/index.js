@@ -1,13 +1,11 @@
-import createBoardComponent from "./components/gameboardUI"
-import { applyDragDrop } from "./eventListeners"
+import { applyDragDrop, createPlayerBoardUI } from "./eventListeners"
 import Bot from "./factories/botFactory"
 import Player from "./factories/playerFactory"
 
-// gameboard UI
-const pBoard = document.querySelector('.pBoard')
-createBoardComponent(pBoard)
+// create player gameboard
+createPlayerBoardUI()
 
-// create player and bot gameboard
+// create player and bot objects
 const p1 = new Player
 const bot = new Bot
 console.log(p1.viewBoard())
