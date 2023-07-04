@@ -1,4 +1,5 @@
 import Gameboard from './gameboardFactory'
+import getRandomNum from '../components/utilities'
 
 class Bot {
     #successfulAttack;
@@ -17,21 +18,15 @@ class Bot {
         return newBoard
     }
     
+   isEmptyPosition(x, y, gameBoard) {
+        return gameBoard[x][y] === null
+    }
+
     getCoordinates(enemyGameboard) {
         // pick a random spot within the board
         // should be a unique coordinate every time
         // if previous coordinate was a hit, choose an adjacent coordinate
         // improvement -- generate next coordinate based on available empty slots instead of random x/y coords
-        
-        function getRandomNum(min, max) {
-            const num = Math.random() * (max - min) + min;
-            return Math.floor(num)
-        }
-
-        function isEmptyPosition(x, y, enemyBoard) {
-            return enemyBoard[x][y] === null
-        }
-
 
         if (this.#successfulAttack) {
             if (this.#possibleSmartMoves.length > 0) {
@@ -46,7 +41,7 @@ class Bot {
         let xCoord = getRandomNum(0, 9)
         let yCoord = getRandomNum(0, 9)
 
-        while (!isEmptyPosition(xCoord, yCoord, enemyGameboard.getBoard())) {
+        while (!this.isEmptyPosition(xCoord, yCoord, enemyGameboard.getBoard())) {
             xCoord = getRandomNum(0, 9)
             yCoord = getRandomNum(0, 9)
         }
@@ -75,10 +70,53 @@ class Bot {
         this.#successfulAttack = enemyWasHit
     }
 
-    chooseShipPositioning() {
+    positionAllShips() {
+        const allShips = this.board.getAllShips()
+        allShips.forEach(ship => {
+            const newCoordinatesArr = this.#generateCoordinates(ship)
+            newCoordinatesArr.forEach(coord => this.board.positionShip(coord[0], coord[1], ship.name))
+        })
+
         
     }
 
+    #generateCoordinates(ship) {
+        const coordinatesArr = []
+        const isRotated = getRandomNum(0, 1) // 0 == false, 1 == true
+            
+        // initiate variables
+        let xCoord = 0;
+        let yCoord = 0;
+            
+        // generate starting coordinates
+        if (isRotated == 1) {
+            xCoord = getRandomNum(0, 9 - ship.length) // example, if shipLength=5, then choose 0-5 x-coordinates
+            yCoord = getRandomNum(0, 9)
+
+            coordinatesArr.push([xCoord, yCoord])
+
+            for (let i = 1 ; i < ship.length ; i++ ) {
+                coordinatesArr.push([xCoord + i, yCoord])
+            }
+
+        } else { // otherwise, horizontal
+            xCoord = getRandomNum(0, 9)
+            yCoord = getRandomNum(0, 9 - ship.length)
+
+            coordinatesArr.push([xCoord, yCoord])
+
+            for (let i = 1 ; i < ship.length ; i++ ) {
+                coordinatesArr.push([xCoord, yCoord + i])
+            }
+        }
+
+        // check if coordinates are occupied
+        const isValid = coordinatesArr.every(coord => this.isEmptyPosition(coord[0], coord[1], this.viewBoard()))
+
+        // return if valid coordinates, otherwise find new ones
+        if (isValid) return coordinatesArr
+        else { generateCoordinates(ship) }
+    }
 }
 
 export default Bot

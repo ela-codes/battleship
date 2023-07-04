@@ -207,10 +207,6 @@ button.resetShipyard {
 
 /*MAIN SCREEN*/
 
-/* .main {
-    flex-direction: row;
-} */
-
 .playerSide,
 .botSide {
     display: grid;
@@ -245,3 +241,4 @@ button.resetShipyard {
     height: 2rem;
     text-align: center;
 }
+

@@ -31,7 +31,7 @@ class Gameboard {
         return ship
     }
 
-    #getAllShips() {
+    getAllShips() {
         const ships = [
             this.carrier, 
             this.battleship, 
@@ -112,7 +112,7 @@ class Gameboard {
 
     areAllShipsSunk() {
         if (this.getSuccessfulAttacks().length >= 17) {
-            const ships = this.#getAllShips()
+            const ships = this.getAllShips()
             const status = ships.every(ship => ship.sunk === true)
 
             if (status) console.log('All ships have sunk!!!')

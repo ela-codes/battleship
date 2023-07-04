@@ -1,4 +1,7 @@
-import createBoardComponent from "./components/gameboardUI";
+import { createBoardComponent, buildMainScreen, createPlayerBoardUI } from "./components/gameboardUI"
+import startGame from './index'
+// rotated = vertical
+// not rotated = horizontal
 
 // DRAG N DROP
 function applyDragDrop(board) {
@@ -87,7 +90,6 @@ function applyDragDrop(board) {
             if (board.numOfShipsReady === 5) toggleBeginBattleBtn()
         }
         event.target.classList.remove("hovered")
-        console.log(board.getBoard())
     }
 
     function isOccupiedBox(event) {
@@ -166,42 +168,11 @@ function resetShips() {
 
 function allowGameStart(btn) {
     btn.addEventListener('click', e => {
-        createBotBoardUI()
-        showMainScreen()
-        updateBoardSizes()
+        buildMainScreen()
+        startGame()
     })
-
 }
 
-function showMainScreen() {
-    const introScreen = document.querySelector('.intro')
-    introScreen.style.display = 'none'
-
-    const mainScreen = document.querySelector('.main')
-    mainScreen.style.display = 'flex'
-    
-    const pBoard = document.querySelector('.intro .pBoard')
-
-    const playerSide = document.querySelector('.playerSide')
-    playerSide.append(pBoard)
-
-}
-
-function createPlayerBoardUI() {
-    const pBoard = document.querySelector('.pBoard')
-    createBoardComponent(pBoard)
-}
-
-function createBotBoardUI() {
-    const botBoard = document.querySelector('.bBoard')
-    createBoardComponent(botBoard)
-}
-
-function updateBoardSizes() {
-    const boxSize = document.querySelector(':root')
-    boxSize.style.setProperty('--boxSize', '50px')
-}
-
-export { applyDragDrop, createPlayerBoardUI }
 
 
+export default applyDragDrop

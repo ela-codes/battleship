@@ -53,4 +53,40 @@ function createBoardComponent(parentContainer) {
     parentContainer.append(childContainer)
 }
 
-export default createBoardComponent
+function buildMainScreen() {
+    function showMainScreen() {
+        const introScreen = document.querySelector('.intro')
+        introScreen.style.display = 'none'
+    
+        const mainScreen = document.querySelector('.main')
+        mainScreen.style.display = 'flex'
+        
+        const pBoard = document.querySelector('.intro .pBoard')
+    
+        const playerSide = document.querySelector('.playerSide')
+        playerSide.append(pBoard)
+    
+    }
+
+    function createBotBoardUI() {
+        const botBoard = document.querySelector('.bBoard')
+        createBoardComponent(botBoard)
+    }
+    
+    function updateBoardSizes() {
+        const boxSize = document.querySelector(':root')
+        boxSize.style.setProperty('--boxSize', '50px')
+    }
+
+    createBotBoardUI()
+    showMainScreen()
+    updateBoardSizes()
+}
+
+function createPlayerBoardUI() {
+    const pBoard = document.querySelector('.pBoard')
+    createBoardComponent(pBoard)
+}
+
+
+export { createBoardComponent, buildMainScreen, createPlayerBoardUI }
