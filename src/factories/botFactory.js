@@ -1,5 +1,5 @@
 import Gameboard from './gameboardFactory'
-import getRandomNum from '../components/utilities'
+import { getRandomNum } from '../components/utilities'
 
 class Bot {
     #successfulAttack;
@@ -74,10 +74,9 @@ class Bot {
         const allShips = this.board.getAllShips()
         allShips.forEach(ship => {
             const newCoordinatesArr = this.#generateCoordinates(ship)
+            
             newCoordinatesArr.forEach(coord => this.board.positionShip(coord[0], coord[1], ship.name))
         })
-
-        
     }
 
     #generateCoordinates(ship) {
@@ -112,10 +111,11 @@ class Bot {
 
         // check if coordinates are occupied
         const isValid = coordinatesArr.every(coord => this.isEmptyPosition(coord[0], coord[1], this.viewBoard()))
+        console.log(coordinatesArr)
 
         // return if valid coordinates, otherwise find new ones
         if (isValid) return coordinatesArr
-        else { generateCoordinates(ship) }
+        else { this.#generateCoordinates(ship) }
     }
 }
 

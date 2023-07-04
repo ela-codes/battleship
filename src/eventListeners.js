@@ -1,5 +1,5 @@
-import { createBoardComponent, buildMainScreen, createPlayerBoardUI } from "./components/gameboardUI"
-import startGame from './index'
+import { buildMainScreen } from "./components/gameboardUI"
+import createBot from './index'
 // rotated = vertical
 // not rotated = horizontal
 
@@ -169,10 +169,14 @@ function resetShips() {
 function allowGameStart(btn) {
     btn.addEventListener('click', e => {
         buildMainScreen()
-        startGame()
+        createBot()
     })
 }
 
+function allowPlayerToAttack() {
+    const botBoard = document.querySelector('.bBoard .boardGrid')
+    console.log(botBoard)
+}
 
 
-export default applyDragDrop
+export { applyDragDrop, allowPlayerToAttack }
