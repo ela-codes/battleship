@@ -1,5 +1,5 @@
 import { buildMainScreen } from "./components/gameboardUI"
-import createBot from './index'
+import { createBot, p1 } from './index'
 // rotated = vertical
 // not rotated = horizontal
 
@@ -169,14 +169,94 @@ function resetShips() {
 function allowGameStart(btn) {
     btn.addEventListener('click', e => {
         buildMainScreen()
-        createBot()
+        const bot = createBot()
+        // start with player's turn
+        allowPlayerAttack(p1, bot)
     })
 }
 
-function allowPlayerToAttack() {
-    const botBoard = document.querySelector('.bBoard .boardGrid')
-    console.log(botBoard)
+function allowTakingTurns(p1, bot, turn) {
+    console.log('current turn:', turn)
+
+    function checkIfAllShipsSunk() {
+        const p1Ships = p1.board.areAllShipsSunk()
+        const botShips = bot.board.areAllShipsSunk()
+        return p1Ships || botShips
+    }
+
+    if (checkIfAllShipsSunk() === false) {
+        if (turn === "p1") {
+            enableBotBoardEvents()
+        } else if (turn === "bot") {
+            allowBotAttack(p1, bot)
+        }
+    }
+}
+
+function switchTurns(p1, bot, previousTurn) {
+    if (previousTurn === "p1") {
+        disableBotBoardEvents()
+        allowTakingTurns(p1, bot, "bot")
+    } else if (previousTurn === "bot") {
+        allowTakingTurns(p1, bot, "p1")
+    }
+}
+
+function allowPlayerAttack(p1, bot) {
+    const boxes = document.querySelectorAll('.bBoard .boardGrid .box')
+    boxes.forEach(box => {
+        // hover
+        box.addEventListener('mouseover', e => {
+            e.target.style.backgroundColor = 'red'
+        })
+
+        // mouse hover leaves
+        box.addEventListener('mouseleave', e => {
+            e.target.style.backgroundColor = ''
+        })
+
+        // attack is made
+        box.addEventListener('click', e => {
+            console.log(e)
+            const coords = [Number(e.target.dataset.x), Number(e.target.dataset.y)]
+
+            const attackFeedback = p1.attackEnemy(coords, bot.board)
+            console.log(attackFeedback)
+            if (attackFeedback === "It's a miss!") {
+                e.target.classList.add('miss')
+            } else if (attackFeedback === "It's a hit!") {
+                e.target.classList.add('hit')
+            }
+            switchTurns(p1, bot, 'p1')
+        })
+    })
 }
 
 
-export { applyDragDrop, allowPlayerToAttack }
+function allowBotAttack(p1, bot) {
+    const coordsArr = bot.getCoordinates(p1.board)
+    const attackFeedback = bot.attackEnemy(coordsArr, p1.board)
+    console.log(attackFeedback)
+    const boxElem = document.querySelector(`[data-x="${coordsArr[0]}"][data-y="${coordsArr[1]}"]`)
+
+    if (attackFeedback === "It's a miss!") {
+        boxElem.classList.add('miss')
+    } else if (attackFeedback === "It's a hit!") {
+        boxElem.classList.add('hit')
+    }
+    switchTurns(p1, bot, 'bot')
+}
+
+
+function disableBotBoardEvents() {
+    const boxes = document.querySelectorAll('.bBoard .boardGrid .box')
+    boxes.forEach(box => box.classList.add('disabled'))
+}
+
+function enableBotBoardEvents() {
+    const boxes = document.querySelectorAll('.bBoard .boardGrid .box')
+    boxes.forEach(box => box.classList.remove('disabled'))
+}
+
+
+export { applyDragDrop }

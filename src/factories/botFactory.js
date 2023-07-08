@@ -40,8 +40,9 @@ class Bot {
 
         let xCoord = getRandomNum(0, 9)
         let yCoord = getRandomNum(0, 9)
+        let enemyBoard = enemyGameboard.getBoard()
 
-        while (!this.isEmptyPosition(xCoord, yCoord, enemyGameboard.getBoard())) {
+        while (!this.isEmptyPosition(xCoord, yCoord, enemyBoard)) {
             xCoord = getRandomNum(0, 9)
             yCoord = getRandomNum(0, 9)
         }
@@ -74,7 +75,6 @@ class Bot {
         const allShips = this.board.getAllShips()
         allShips.forEach(ship => {
             const newCoordinatesArr = this.#generateCoordinates(ship)
-            
             newCoordinatesArr.forEach(coord => this.board.positionShip(coord[0], coord[1], ship.name))
         })
     }
@@ -111,11 +111,10 @@ class Bot {
 
         // check if coordinates are occupied
         const isValid = coordinatesArr.every(coord => this.isEmptyPosition(coord[0], coord[1], this.viewBoard()))
-        console.log(coordinatesArr)
 
         // return if valid coordinates, otherwise find new ones
         if (isValid) return coordinatesArr
-        else { this.#generateCoordinates(ship) }
+        else { return this.#generateCoordinates(ship) }
     }
 }
 

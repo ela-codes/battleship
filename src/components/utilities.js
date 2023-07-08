@@ -57,6 +57,11 @@ function simulateDragDrop() {
         const dragEndEvent = new Event('dragend', { bubbles: true });
         shipElement.dispatchEvent(dragEndEvent);
     }
-  }
+}
 
-export { getRandomNum, simulateDragDrop }
+function simulateBeginBattle() {
+    const btn = document.querySelector('button.beginBattle')
+    btn.click()
+}
+
+export { getRandomNum, simulateDragDrop, simulateBeginBattle }

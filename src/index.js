@@ -1,27 +1,31 @@
-import { applyDragDrop, allowPlayerToAttack } from "./eventListeners"
+import { applyDragDrop } from "./eventListeners"
 import { createPlayerBoardUI } from "./components/gameboardUI"
-import { simulateDragDrop } from "./components/utilities"
+import { simulateDragDrop, simulateBeginBattle } from "./components/utilities"
 import Bot from "./factories/botFactory"
 import Player from "./factories/playerFactory"
 
-// create player gameboard
-createPlayerBoardUI()
-
 // create player object
-const p1 = new Player
+function createPlayer() {
+    const p1 = new Player
+    return p1
+}
 
-// activate event listeners
-applyDragDrop(p1.board)
-simulateDragDrop()
-
-// start game
+// create bot object
 function createBot() {
     const bot = new Bot
     bot.positionAllShips()
     console.log(bot.viewBoard())
-
-    allowPlayerToAttack()
+    return bot
 }
 
+// create player object & gameboard
+createPlayerBoardUI()
+const p1 = createPlayer()
 
-export default createBot
+
+// activate event listeners
+applyDragDrop(p1.board)
+// simulateDragDrop()
+// simulateBeginBattle()
+
+export { createBot, p1 }
