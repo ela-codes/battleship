@@ -25,6 +25,9 @@ const p1 = createPlayer()
 
 // activate event listeners
 applyDragDrop(p1.board)
+
+
+// intro simulation for testing
 // simulateDragDrop()
 // simulateBeginBattle()
 

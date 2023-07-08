@@ -227,6 +227,7 @@ function allowPlayerAttack(p1, bot) {
             } else if (attackFeedback === "It's a hit!") {
                 e.target.classList.add('hit')
             }
+            e.target.classList.add('permanentlyDisabled')
             switchTurns(p1, bot, 'p1')
         })
     })
@@ -234,7 +235,7 @@ function allowPlayerAttack(p1, bot) {
 
 
 function allowBotAttack(p1, bot) {
-    const coordsArr = bot.getCoordinates(p1.board)
+    const coordsArr = bot.getCoordinates()
     const attackFeedback = bot.attackEnemy(coordsArr, p1.board)
     console.log(attackFeedback)
     const boxElem = document.querySelector(`[data-x="${coordsArr[0]}"][data-y="${coordsArr[1]}"]`)
@@ -250,7 +251,9 @@ function allowBotAttack(p1, bot) {
 
 function disableBotBoardEvents() {
     const boxes = document.querySelectorAll('.bBoard .boardGrid .box')
-    boxes.forEach(box => box.classList.add('disabled'))
+    boxes.forEach(box => {
+        if (!box.classList.contains('permanentlyDisabled')) box.classList.add('disabled')
+    })
 }
 
 function enableBotBoardEvents() {

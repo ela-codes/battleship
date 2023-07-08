@@ -113,18 +113,22 @@ footer {
 }
 
 .hit {
-    background-image: var(--hitPNG)!important;
+    background-image: var(--hitPNG);
     background-size: fit-content;
 
 }
 
 .miss {
-    background-image: var(--missPNG) !important;
+    background-image: var(--missPNG);
     background-size: fit-content;
     /* add noise effect */
 }
 
 .disabled {
+    pointer-events: none;
+}
+
+.permanentlyDisabled {
     pointer-events: none;
 }
 

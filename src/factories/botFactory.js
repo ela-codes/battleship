@@ -18,8 +18,10 @@ class Bot {
         return newBoard
     }
     
-   isEmptyPosition(x, y, gameBoard) {
-        return gameBoard[x][y] === null
+   isEmptyPosition(x, y) {
+        const missedPrevAttack = this.board.getMissedAttacks().includes([x,y])
+        const successsfulPrevAttack = this.board.getSuccessfulAttacks().includes([x,y])
+        return !missedPrevAttack || !successsfulPrevAttack
     }
 
     getCoordinates(enemyGameboard) {
@@ -40,13 +42,12 @@ class Bot {
 
         let xCoord = getRandomNum(0, 9)
         let yCoord = getRandomNum(0, 9)
-        let enemyBoard = enemyGameboard.getBoard()
 
-        while (!this.isEmptyPosition(xCoord, yCoord, enemyBoard)) {
+        while (!this.isEmptyPosition(xCoord, yCoord)) {
             xCoord = getRandomNum(0, 9)
             yCoord = getRandomNum(0, 9)
         }
-        
+
         return [xCoord, yCoord]
     }
 
