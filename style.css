@@ -5,6 +5,8 @@
     --mediumgray: #afaeae;
     --lightblue: #dff4ff;
     --darkblue: #439acc;
+    --hitPNG: url('../images/hit.png');
+    --missPNG: url('../images/miss.png')
 }
 
 body {
@@ -17,6 +19,7 @@ body {
     justify-content: space-between;
     align-items: center;
     font-family: 'Arial Black', sans-serif;
+    background-color: rgb(43, 87, 124); /*for viewing purpose only*/
 }
 
 button {
@@ -107,6 +110,22 @@ footer {
 
 .dropped {
     background-color: var(--mediumgray);
+}
+
+.hit {
+    background-image: var(--hitPNG)!important;
+    background-size: fit-content;
+
+}
+
+.miss {
+    background-image: var(--missPNG) !important;
+    background-size: fit-content;
+    /* add noise effect */
+}
+
+.disabled {
+    pointer-events: none;
 }
 
 /* ships */
