@@ -1,5 +1,6 @@
 import { buildMainScreen } from "./components/gameboardUI"
 import { createBot, p1 } from './index'
+import { capitalize } from './components/utilities'
 // rotated = vertical
 // not rotated = horizontal
 
@@ -171,6 +172,7 @@ function allowGameStart(btn) {
         buildMainScreen()
         const bot = createBot()
         // start with player's turn
+        updateGameNotification("It's your turn!")
         allowPlayerAttack(p1, bot)
     })
 }
@@ -194,11 +196,19 @@ function allowTakingTurns(p1, bot, turn) {
 }
 
 function switchTurns(p1, bot, previousTurn) {
+    const timeDelay = 2000
     if (previousTurn === "p1") {
-        disableBotBoardEvents()
-        allowTakingTurns(p1, bot, "bot")
+        setTimeout(() => {
+            updateGameNotification("It's bot's turn!")
+            disableBotBoardEvents()
+            setTimeout(() => allowTakingTurns(p1, bot, "bot"), timeDelay)
+        }, timeDelay)
+        
     } else if (previousTurn === "bot") {
-        allowTakingTurns(p1, bot, "p1")
+        setTimeout(() => {
+            updateGameNotification("It's your turn!")
+            allowTakingTurns(p1, bot, "p1")
+        }, timeDelay)
     }
 }
 
@@ -217,15 +227,21 @@ function allowPlayerAttack(p1, bot) {
 
         // attack is made
         box.addEventListener('click', e => {
-            console.log(e)
+            const missMsg = "It's a miss!"
+            const hitMsg = "It's a hit!"
             const coords = [Number(e.target.dataset.x), Number(e.target.dataset.y)]
 
-            const attackFeedback = p1.attackEnemy(coords, bot.board)
-            console.log(attackFeedback)
-            if (attackFeedback === "It's a miss!") {
+            const [attackFeedback, isSunk, shipName] = p1.attackEnemy(coords, bot.board)
+            updateGameNotification(attackFeedback)
+
+            if (attackFeedback === missMsg) {
                 e.target.classList.add('miss')
-            } else if (attackFeedback === "It's a hit!") {
+            } else if (attackFeedback === hitMsg) {
                 e.target.classList.add('hit')
+                console.log(isSunk)
+                if (isSunk) {
+                    updateGameNotification(`${capitalize(shipName)} has sunk!`)
+                }
             }
             e.target.classList.add('permanentlyDisabled')
             switchTurns(p1, bot, 'p1')
@@ -236,15 +252,19 @@ function allowPlayerAttack(p1, bot) {
 
 function allowBotAttack(p1, bot) {
     const coordsArr = bot.getCoordinates()
-    const attackFeedback = bot.attackEnemy(coordsArr, p1.board)
-    console.log(attackFeedback)
+    const [attackFeedback, isSunk, shipName] = bot.attackEnemy(coordsArr, p1.board)
+    updateGameNotification(attackFeedback)
     const boxElem = document.querySelector(`[data-x="${coordsArr[0]}"][data-y="${coordsArr[1]}"]`)
 
     if (attackFeedback === "It's a miss!") {
         boxElem.classList.add('miss')
     } else if (attackFeedback === "It's a hit!") {
         boxElem.classList.add('hit')
+        if (isSunk) {
+            updateGameNotification(`${shipName} has sunk!`)
+        }
     }
+
     switchTurns(p1, bot, 'bot')
 }
 
@@ -261,5 +281,10 @@ function enableBotBoardEvents() {
     boxes.forEach(box => box.classList.remove('disabled'))
 }
 
+
+function updateGameNotification(message) {
+    const container = document.querySelector('.mainHeader')
+    container.innerText = message
+}
 
 export { applyDragDrop }

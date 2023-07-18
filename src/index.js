@@ -28,7 +28,7 @@ applyDragDrop(p1.board)
 
 
 // intro simulation for testing
-// simulateDragDrop()
-// simulateBeginBattle()
+simulateDragDrop()
+simulateBeginBattle()
 
 export { createBot, p1 }

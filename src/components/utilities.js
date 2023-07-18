@@ -3,6 +3,12 @@ function getRandomNum(min, max) {
     return Math.floor(num)
 }
 
+function capitalize(string) {
+    let firstLetter = string.charAt(0)
+    firstLetter = firstLetter.toUpperCase()
+    return firstLetter + string.slice(1)
+}
+
 function simulateDragDrop() {
     const carrier = document.querySelector('#carrier');
     const carrierElem = document.querySelector('[data-x="3"][data-y="5"]');
@@ -64,4 +70,4 @@ function simulateBeginBattle() {
     btn.click()
 }
 
-export { getRandomNum, simulateDragDrop, simulateBeginBattle }
+export { getRandomNum, simulateDragDrop, simulateBeginBattle, capitalize }

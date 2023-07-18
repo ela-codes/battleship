@@ -11,6 +11,10 @@ class Ship {
         this.#isSunk()
     }
 
+    checkIfSunk() {
+        return this.sunk
+    }
+
     #setShipAsSunk() {
         this.sunk = true
     }

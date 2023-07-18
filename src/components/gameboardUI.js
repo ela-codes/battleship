@@ -59,13 +59,15 @@ function buildMainScreen() {
         introScreen.style.display = 'none'
     
         const mainScreen = document.querySelector('.main')
-        mainScreen.style.display = 'flex'
+        mainScreen.style.display = 'grid'
+        mainScreen.style["grid-template-columns"] = "1fr 1fr"
+        mainScreen.style["grid-template-rows"] = "min-content 1fr"
         
         const pBoard = document.querySelector('.intro .pBoard')
     
         const playerSide = document.querySelector('.playerSide')
-        playerSide.append(pBoard)
-    
+        playerSide.insertBefore(pBoard, playerSide.childNodes[5])
+
     }
 
     function createBotBoardUI() {

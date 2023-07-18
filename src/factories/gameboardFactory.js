@@ -101,10 +101,11 @@ class Gameboard {
             if (board[x][y] !== null) {
                 ships[board[x][y]].hit()
                 this.#storeSuccessfulAttack(x, y)
-                return "It's a hit!"
+                const isSunk = ships[board[x][y]].checkIfSunk()
+                return ["It's a hit!", isSunk, ships[board[x][y]].name]
             } else {
                 this.#storeMissedAttack(x, y)
-                return "It's a miss!"
+                return ["It's a miss!", false, undefined]
             }
 
         } else return 'Invalid attack'
