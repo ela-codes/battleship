@@ -18,13 +18,16 @@ class Bot {
         return newBoard
     }
     
-   isEmptyPosition(x, y) {
-        const missedPrevAttack = this.board.getMissedAttacks().includes([x,y])
-        const successsfulPrevAttack = this.board.getSuccessfulAttacks().includes([x,y])
-        return !missedPrevAttack || !successsfulPrevAttack
+   isEmptyPosition(x, y, enemyBoard) {
+        console.log(enemyBoard.getMissedAttacks())
+        const notAMissedAttack = !enemyBoard.getMissedAttacks().some(attack => attack[0] == x && attack[1] == y)
+        const notASucessfulAttack = !enemyBoard.getSuccessfulAttacks().some(attack => attack[0] == x && attack[1] == y)
+        
+        if (notAMissedAttack && notASucessfulAttack) return true
+        return false
     }
 
-    getCoordinates(enemyGameboard) {
+    getCoordinates(enemyBoard) {
         // pick a random spot within the board
         // should be a unique coordinate every time
         // if previous coordinate was a hit, choose an adjacent coordinate
@@ -42,13 +45,11 @@ class Bot {
 
         let xCoord = getRandomNum(0, 9)
         let yCoord = getRandomNum(0, 9)
+        let emptyPosition = this.isEmptyPosition(xCoord, yCoord, enemyBoard)
+        console.log(xCoord,yCoord,emptyPosition)
 
-        while (!this.isEmptyPosition(xCoord, yCoord)) {
-            xCoord = getRandomNum(0, 9)
-            yCoord = getRandomNum(0, 9)
-        }
-
-        return [xCoord, yCoord]
+        if (emptyPosition) return [xCoord, yCoord] 
+        return this.getCoordinates(enemyBoard)
     }
 
 
@@ -111,11 +112,13 @@ class Bot {
         }
 
         // check if coordinates are occupied
-        const isValid = coordinatesArr.every(coord => this.isEmptyPosition(coord[0], coord[1], this.viewBoard()))
+        const isValid = coordinatesArr.every(coord => this.viewBoard()[coord[0]][coord[1]] === null)
 
         // return if valid coordinates, otherwise find new ones
         if (isValid) return coordinatesArr
         else { return this.#generateCoordinates(ship) }
+
+        
     }
 }
 

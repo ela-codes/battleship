@@ -183,24 +183,31 @@ function allowTakingTurns(p1, bot, turn) {
     function checkIfAllShipsSunk() {
         const p1Ships = p1.board.areAllShipsSunk()
         const botShips = bot.board.areAllShipsSunk()
+
+        if (p1Ships) updateGameNotification("Bot wins!")
+        else if (botShips) updateGameNotification("Player wins!")
+
         return p1Ships || botShips
     }
 
-    if (checkIfAllShipsSunk() === false) {
+    if (checkIfAllShipsSunk() === false) { 
         if (turn === "p1") {
             enableBotBoardEvents()
         } else if (turn === "bot") {
             allowBotAttack(p1, bot)
         }
+    } else { // if game over
+        const restartBtn = createRestartGameButton()
+        restartBtn.addEventListener('click', () => refreshPage())
     }
 }
 
 function switchTurns(p1, bot, previousTurn) {
-    const timeDelay = 2000
+    const timeDelay = 1500
     if (previousTurn === "p1") {
+        disableBotBoardEvents()
         setTimeout(() => {
             updateGameNotification("It's bot's turn!")
-            disableBotBoardEvents()
             setTimeout(() => allowTakingTurns(p1, bot, "bot"), timeDelay)
         }, timeDelay)
         
@@ -241,6 +248,8 @@ function allowPlayerAttack(p1, bot) {
                 console.log(isSunk)
                 if (isSunk) {
                     updateGameNotification(`${capitalize(shipName)} has sunk!`)
+                    console.log(`Bot ${capitalize(shipName)} has sunk!`)
+                    showInGraveyard(shipName, 'bot')
                 }
             }
             e.target.classList.add('permanentlyDisabled')
@@ -251,23 +260,44 @@ function allowPlayerAttack(p1, bot) {
 
 
 function allowBotAttack(p1, bot) {
-    const coordsArr = bot.getCoordinates()
+    const coordsArr = bot.getCoordinates(p1.board)
     const [attackFeedback, isSunk, shipName] = bot.attackEnemy(coordsArr, p1.board)
+
     updateGameNotification(attackFeedback)
     const boxElem = document.querySelector(`[data-x="${coordsArr[0]}"][data-y="${coordsArr[1]}"]`)
+    console.log(p1.board.getSuccessfulAttacks())
+    console.log(p1.board.getMissedAttacks())
 
+    console.log(coordsArr, attackFeedback)
     if (attackFeedback === "It's a miss!") {
         boxElem.classList.add('miss')
     } else if (attackFeedback === "It's a hit!") {
         boxElem.classList.add('hit')
         if (isSunk) {
             updateGameNotification(`${shipName} has sunk!`)
+            console.log(`Player ${capitalize(shipName)} has sunk!`)
+            showInGraveyard(shipName, 'p1')
         }
     }
-
     switchTurns(p1, bot, 'bot')
 }
 
+function showInGraveyard(shipName, shipOwner) {
+    let graveyard;
+
+    if (shipOwner === "bot") {
+        graveyard = document.querySelector('.bSunkShips')
+    } else {
+        graveyard = document.querySelector('.pSunkShips')
+    }
+
+    const ship = document.createElement('div')
+    ship.id = shipName
+    ship.innerText = shipName.toUpperCase()
+    ship.classList.add('ship')
+    graveyard.append(ship)
+
+}
 
 function disableBotBoardEvents() {
     const boxes = document.querySelectorAll('.bBoard .boardGrid .box')
@@ -287,4 +317,18 @@ function updateGameNotification(message) {
     container.innerText = message
 }
 
+function createRestartGameButton() {
+    const restartBtn = document.createElement('button')
+    restartBtn.classList.add('restart')
+    restartBtn.innerHTML= 'Restart Game?'
+
+    const mainheader = document.querySelector('.mainHeader')
+    mainheader.append(restartBtn)
+
+    return restartBtn
+}
+
+function refreshPage() {
+    location.reload()
+}
 export { applyDragDrop }

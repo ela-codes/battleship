@@ -7,6 +7,7 @@ import Player from "./factories/playerFactory"
 // create player object
 function createPlayer() {
     const p1 = new Player
+    console.log(p1.viewBoard())
     return p1
 }
 
@@ -27,8 +28,8 @@ const p1 = createPlayer()
 applyDragDrop(p1.board)
 
 
-// intro simulation for testing
-simulateDragDrop()
-simulateBeginBattle()
+// // intro simulation for testing
+// simulateDragDrop()
+// simulateBeginBattle()
 
 export { createBot, p1 }

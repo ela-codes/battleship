@@ -61,7 +61,7 @@ function buildMainScreen() {
         const mainScreen = document.querySelector('.main')
         mainScreen.style.display = 'grid'
         mainScreen.style["grid-template-columns"] = "1fr 1fr"
-        mainScreen.style["grid-template-rows"] = "min-content 1fr"
+        mainScreen.style["grid-template-rows"] = "100px 1fr"
         
         const pBoard = document.querySelector('.intro .pBoard')
     

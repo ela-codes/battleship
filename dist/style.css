@@ -3,7 +3,7 @@
     --shipBoxSize: 68px;
     --boxMargin: 1px;
     --mediumgray: #afaeae;
-    --lightblue: #dff4ff;
+    --lightblue: #dbf5f7;
     --darkblue: #439acc;
     --hitPNG: url('../images/hit.png');
     --missPNG: url('../images/miss.png')
@@ -19,7 +19,7 @@ body {
     justify-content: space-between;
     align-items: center;
     font-family: 'Arial Black', sans-serif;
-    background-color: rgb(43, 87, 124); /*for viewing purpose only*/
+    /* background-color: rgb(43, 87, 124); for viewing purpose only */
 }
 
 button {
@@ -29,12 +29,16 @@ button {
 }
 
 header {
-    padding-top: 10px;
-    font-size: 50px
+    padding-top: 20px;
+    font-size: 80px;
+    color: var(--darkblue);
+    text-shadow: 2px 2px 2px black;
 }
 
 footer {
     font-family: Arial;
+    display: flex;
+    align-items: center;
 }
 
 /* INTRO SCREEN */
@@ -45,16 +49,11 @@ footer {
     justify-content: space-between;
 }
 
-/* .pBoard,
-.shipyard {
-    padding: 20px 0px;
-} */
-
-
 .boardContainer {
     display: grid;
     grid-template-columns: var(--boxSize) 1fr;
     grid-template-rows: var(--boxSize) 1fr;
+    padding-bottom: 20px;
 }
 
 .boardGrid {
@@ -235,6 +234,19 @@ button.resetShipyard {
     grid-row: 1 / 2;
     text-align: center;
     font-size: 30px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mainHeader .restart {
+    height: 50px;
+    width: calc(var(--shipBoxSize) * 3);
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    color: var(--darkblue);
 }
 
 .playerSide,
@@ -242,25 +254,23 @@ button.resetShipyard {
     display: flex;
     flex-direction: column;
     grid-template: 1fr / 1fr 1fr;
-    border: 1px dashed black;
 }
 
-/* .playerSide {
+.playerSide {
     margin: 0px 30px 0px 0px;
-} */
+}
+
+.botSide {
+    margin: 0px 0px 0px 30px;
+}
 
 .pGraveyard,
 .bGraveyard {
     display: grid;
     grid-auto-flow: row;
     grid-template-rows: min-content 1fr;
+    justify-content: center;
 }
-/* 
-.pBoard,
-.bBoard {
-    grid-column: 1 / 2 ; 
-    grid-row: 2 / 3;
-} */
 
 .fleetHeader {
     grid-column: 1 / 3;
@@ -274,3 +284,9 @@ button.resetShipyard {
     text-align: center;
 }
 
+.pSunkShips,
+.bSunkShips {
+    display: grid;
+    justify-items: center;
+    row-gap: 10px;
+}
