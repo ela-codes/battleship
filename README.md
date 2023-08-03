@@ -5,7 +5,6 @@ A strategy-type guessing game usually played by two players or human vs. compute
 This project was created to showcase my understanding of Test Driven Development in Javascript. 
 
 # Built With
-Javascript
-Jest
+Javascript, Jest, HTML, and CSS
 
-# [Live Demo - In Progress]()
+# [Live Demo](https://ateodocio.github.io/battleship/dist/)
