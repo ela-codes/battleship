@@ -7,4 +7,4 @@ This project was created to showcase my understanding of Test Driven Development
 # Built With
 Javascript, Jest, HTML, and CSS
 
-# [Live Demo](https://ateodocio.github.io/battleship/dist/)
+# [Live Demo](https://ela-codes.github.io/battleship/dist/)
